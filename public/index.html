@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>extractor</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+#container {
+
+}
+
+#url {
+  width: 100%;
+}
+
+#find {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#msg {
+  border: 1px solid black;
+  min-height: 20px;
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+<div id="container">
+  <h1>extractor</h1>
+  <input type="text" id="url" value="https://news.ycombinator.com">
+  <input type="button" id="find" value="Find Resources">
+
+  <div id="msg"></div>
+</div>
+
+<script>
+'use strict';
+
+const API_BASE = '/api';
+
+let urlField = document.getElementById('url');
+let find = document.getElementById('find');
+let msg = document.getElementById('msg');
+
+find.addEventListener('click', async function(e){
+  let url = urlField.value;
+  msg.innerText = '';
+  fetch(API_BASE+'?url='+url)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      if (data.msg == 'resources found') {
+        msg.innerText = 'Resources found';
+      } else {
+        msg.innerText = 'No resources found on page.'
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
+</script>
+</body>
+</html>
