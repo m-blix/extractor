@@ -1,4 +1,4 @@
-Wconst express = require('express');
+const express = require('express');
 const app = express();
 const port = 8002;
 
@@ -61,10 +61,14 @@ app.get('/api', async (req, res) => {
 app.use(express.static('public'));
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`extractor listening at http://localhost:${port}`);
 });
 
 function getResources() {
-  let resources = [];
+  let resources = {};
+  let images = getAllImages();
+  let links = getAllLinks();
+  resources.images = images;
+  resources.links = links;
   return resources;
 }

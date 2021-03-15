@@ -44,7 +44,7 @@ h1 {
 <body>
 <div id="container">
   <h1>extractor</h1>
-  <input type="text" id="url" value="https://news.ycombinator.com">
+  <input type="text" id="url" value="https://extractor.mkeblx.net/sample.html">
   <input type="button" id="find" value="Find Resources">
 
   <div id="msg"></div>
@@ -67,7 +67,9 @@ find.addEventListener('click', async function(e){
     .then(data => {
       console.log('Success:', data);
       if (data.msg == 'resources found') {
-        msg.innerText = 'Resources found';
+        let images = data.resources.images;
+        let links = data.resources.links;
+        msg.innerText = 'Resources found: ' + images.length + ' images, ' + links.length + ' links';
       } else {
         msg.innerText = 'No resources found on page.'
       }
